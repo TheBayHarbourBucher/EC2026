@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stress Quiz — Stressed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pink:      #FF6B9D;
+  --yellow:    #FFD166;
+  --mint:      #06D6A0;
+  --sky:       #4CC9F0;
+  --lavender:  #A78BFA;
+  --peach:     #FF9472;
+  --dark:      #0D1117;
+  --off:       #FAFAFA;
+  --white:     #FFFFFF;
+  --text:      #111827;
+  --text-mid:  #4B5563;
+  --text-muted:#9CA3AF;
+  --border:    rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.15);
+  --ff-head:   'Syne', sans-serif;
+  --ff-body:   'Plus Jakarta Sans', sans-serif;
+  --nav-h:     70px;
+  --radius:    20px;
+  --radius-lg: 28px;
+  --shadow:    0 4px 24px rgba(0,0,0,0.07);
+  --shadow-lg: 0 2px 0px rgba(0,0,0,0.15), 0 12px 40px rgba(0,0,0,0.1);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ff-body);
+  background: var(--off);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  background: rgba(250,250,250,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--ff-head);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: -0.5px;
+}
+.nav-logo-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--pink);
+  display: inline-block;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-mid);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 30px;
+  transition: all 0.18s;
+}
+.nav-links a:hover { color: var(--text); background: rgba(0,0,0,0.05); }
+.nav-links a.active { color: var(--text); background: rgba(0,0,0,0.07); font-weight: 700; }
+.nav-quiz {
+  background: var(--dark) !important;
+  color: #fff !important;
+  padding: 9px 20px !important;
+  border-radius: 30px !important;
+  margin-left: 8px;
+}
+.nav-quiz:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2) !important;
+  background: var(--dark) !important;
+  color: #fff !important;
+}
+
+/* ── Hero ── */
+.hero {
+  margin-top: var(--nav-h);
+  background: var(--dark);
+  padding: 60px 32px 56px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+.hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  opacity: 0.18;
+}
+.hg-1 { width:360px; height:360px; background:var(--lavender); top:-100px; left:-60px; }
+.hg-2 { width:300px; height:300px; background:var(--mint);     bottom:-80px; right:-40px; }
+
+.hero-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 30px;
+  padding: 7px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--lavender);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  margin-bottom: 20px;
+}
+.hero-title {
+  font-family: var(--ff-head);
+  font-size: clamp(36px, 6vw, 60px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+}
+.hero-title .accent { color: var(--lavender); }
+.hero-subtitle {
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.75;
+  margin-bottom: 32px;
+  max-width: 500px;
+  margin-inline: auto;
+}
+.hero-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.hero-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 500;
+}
+.hero-meta-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--mint);
+}
+
+/* ── Quiz Container ── */
+.quiz-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+}
+
+/* ── quiz card── */
+.quiz-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+/* Progress bar at top of card */
+.quiz-progress-wrap {
+  padding: 24px 32px 0;
+}
+.quiz-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.quiz-progress-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.quiz-progress-count {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+.quiz-progress-track {
+  height: 6px;
+  background: var(--off);
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.quiz-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--lavender), var(--pink));
+  border-radius: 3px;
+  transition: width 0.4s cubic-bezier(.22,1,.36,1);
+}
+
+/* Quiz body */
+.quiz-body {
+  padding: 32px 32px 28px;
+}
+
+/* Step */
+.quiz-step { display: none; }
+.quiz-step.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Question number badge */
+.q-num {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--lavender);
+  background: #EDE9FE;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.quiz-question {
+  font-family: var(--ff-head);
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+  margin-bottom: 28px;
+  letter-spacing: -0.5px;
+}
+
+/* Options */
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.quiz-opt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.18s;
+  background: var(--off);
+  user-select: none;
+}
+.quiz-opt:hover {
+  border-color: var(--lavender);
+  background: #F5F3FF;
+  transform: translateX(4px);
+}
+.quiz-opt.selected {
+  border-color: var(--lavender);
+  background: #EDE9FE;
+}
+.opt-radio {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.18s;
+}
+.quiz-opt.selected .opt-radio {
+  border-color: var(--lavender);
+  background: var(--lavender);
+}
+.opt-radio-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.quiz-opt.selected .opt-radio-dot { opacity: 1; }
+.opt-emoji { font-size: 20px; flex-shrink: 0; }
+.opt-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-mid);
+  flex: 1;
+  line-height: 1.4;
+}
+.quiz-opt.selected .opt-text { color: var(--text); font-weight: 600; }
+
+/* Nav buttons */
+.quiz-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px 28px;
+  border-top: 1.5px solid var(--border);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--ff-body);
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-back {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1.5px solid var(--border-strong);
+}
+.btn-back:hover { color: var(--text); border-color: var(--text); }
+.btn-next {
+  background: var(--dark);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.btn-next:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.22); }
+.btn-next:disabled {
+  background: #E5E7EB;
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn-result {
+  background: linear-gradient(135deg, var(--lavender), var(--pink));
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(167,139,250,0.35);
+}
+.btn-result:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(167,139,250,0.5); }
+.btn-result:disabled {
+  background: #E5E7EB;
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Result ── */
+.quiz-result { display: none; }
+.quiz-result.visible { display: block; animation: fadeIn 0.5s ease; }
+
+.result-header {
+  padding: 36px 32px 24px;
+  text-align: center;
+  border-bottom: 1.5px solid var(--border);
+}
+
+/* Score ring */
+.score-ring-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 24px;
+}
+.score-ring-wrap svg {
+  transform: rotate(-90deg);
+}
+.score-ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.score-big {
+  font-family: var(--ff-head);
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1;
+}
+.score-denom {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.result-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.badge-green  { background: #D1FAE5; color: #065F46; }
+.badge-yellow { background: #FEF9C3; color: #854D0E; }
+.badge-red    { background: #FFE4E6; color: #9F1239; }
+
+.result-heading {
+  font-family: var(--ff-head);
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+}
+.result-desc {
+  font-size: 15px;
+  color: var(--text-mid);
+  line-height: 1.75;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Result tips */
+.result-tips {
+  padding: 28px 32px;
+  border-bottom: 1.5px solid var(--border);
+}
+.result-tips-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.tip-card {
+  background: var(--off);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 16px;
+}
+.tip-icon { font-size: 24px; margin-bottom: 10px; }
+.tip-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.tip-text {
+  font-size: 12px;
+  color: var(--text-mid);
+  line-height: 1.6;
+}
+
+/* Result breakdown */
+.result-breakdown {
+  padding: 24px 32px;
+  border-bottom: 1.5px solid var(--border);
+}
+.breakdown-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.breakdown-bars { display: flex; flex-direction: column; gap: 12px; }
+.breakdown-row {}
+.breakdown-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: var(--text-mid);
+  font-weight: 500;
+}
+.breakdown-track {
+  height: 8px;
+  background: var(--off);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.breakdown-fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+/* Result footer actions */
+.result-actions {
+  padding: 24px 32px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn-retake {
+  background: transparent;
+  color: var(--text);
+  border: 1.5px solid var(--border-strong);
+}
+.btn-retake:hover { background: var(--off); }
+.btn-tips {
+  background: var(--mint);
+  color: var(--dark);
+  box-shadow: 0 4px 16px rgba(6,214,160,0.25);
+}
+.btn-tips:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(6,214,160,0.4); }
+
+/* ── Footer ── */
+footer {
+  background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 36px 0;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-logo {
+  font-family: var(--ff-head);
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+}
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color 0.18s;
+}
+.footer-links a:hover { color: rgba(255,255,255,0.85); }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .nav-links li:not(:last-child) { display: none; }
+  .quiz-container { padding: 32px 16px 60px; }
+  .quiz-body { padding: 24px 20px 20px; }
+  .quiz-nav { padding: 16px 20px 24px; }
+  .result-header { padding: 28px 20px 20px; }
+  .result-tips { padding: 20px; }
+  .tips-grid { grid-template-columns: 1fr; }
+  .result-breakdown { padding: 20px; }
+  .result-actions { padding: 20px; }
+  .quiz-progress-wrap { padding: 20px 20px 0; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-dot"></span>
+      Stressed
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="stats.html">Statistics</a></li>
+      <li><a href="tips.html">Tips</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="quiz.html" class="nav-quiz active">Take the quiz ✏️</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-glow hg-1"></div>
+  <div class="hero-glow hg-2"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">✏️ Stress Calculator</div>
+    <h1 class="hero-title">What's your <span class="accent">stress score?</span></h1>
+    <p class="hero-subtitle">Answer 6 quick questions about your daily habits. We'll calculate your personal wellbeing score and give you tips tailored to your results.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span class="hero-meta-dot"></span> 6 questions</div>
+      <div class="hero-meta-item"><span class="hero-meta-dot"></span> Takes about 2 minutes</div>
+      <div class="hero-meta-item"><span class="hero-meta-dot"></span> No data stored</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Quiz ── -->
+<div class="quiz-container">
+  <div class="quiz-card" id="quiz-card">
+
+    <!-- Progress -->
+    <div class="quiz-progress-wrap">
+      <div class="quiz-progress-header">
+        <span class="quiz-progress-label">Your progress</span>
+        <span class="quiz-progress-count" id="progress-count">Question 1 of 6</span>
+      </div>
+      <div class="quiz-progress-track">
+        <div class="quiz-progress-bar" id="progress-bar" style="width:16.6%"></div>
+      </div>
+    </div>
+
+    <!-- Steps -->
+    <div class="quiz-body" id="quiz-body">
+
+      <!-- Q1: Sleep -->
+      <div class="quiz-step active" id="step-1">
+        <div class="q-num">Question 1 — Sleep</div>
+        <div class="quiz-question">How many hours of sleep do you get on a typical school night?</div>
+        <div class="quiz-options">
+          <div class="quiz-opt" onclick="selectOpt(this, 1, 0)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">😴</span>
+            <span class="opt-text">Less than 5 hours — I'm always exhausted</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 1, 1)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">🥱</span>
+            <span class="opt-text">5 – 6 hours — not enough but it's what I get</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 1, 2)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">😊</span>
+            <span class="opt-text">7 – 8 hours — pretty decent</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 1, 3)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">🌟</span>
+            <span class="opt-text">More than 8 hours — I prioritise my sleep</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 screen time -->
+      <div class="quiz-step" id="step-2">
+        <div class="q-num">Question 2 — Screen Time</div>
+        <div class="quiz-question">How many hours of recreational screen time do you have each day?</div>
+        <div class="quiz-options">
+          <div class="quiz-opt" onclick="selectOpt(this, 2, 0)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">📱</span>
+            <span class="opt-text">More than 7 hours — basically all day</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 2, 1)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">💻</span>
+            <span class="opt-text">4 – 7 hours — quite a lot</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 2, 2)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">🙂</span>
+            <span class="opt-text">2 – 4 hours — moderate use</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 2, 3)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">✅</span>
+            <span class="opt-text">Less than 2 hours — I keep it minimal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q stress frequency -->
+      <div class="quiz-step" id="step-3">
+        <div class="q-num">Question 3 — Academic Stress</div>
+        <div class="quiz-question">How often do you feel stressed or overwhelmed by schoolwork?</div>
+        <div class="quiz-options">
+          <div class="quiz-opt" onclick="selectOpt(this, 3, 0)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">🔥</span>
+            <span class="opt-text">Almost every day — I feel constantly under pressure</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 3, 1)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">😰</span>
+            <span class="opt-text">Often — it affects my daily life</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 3, 2)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">😐</span>
+            <span class="opt-text">Sometimes — usually manageable</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 3, 3)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">😌</span>
+            <span class="opt-text">Rarely — I feel mostly in control</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4: Study hours -->
+      <div class="quiz-step" id="step-4">
+        <div class="q-num">Question 4 — Study Habits</div>
+        <div class="quiz-question">How many hours do you study or do homework outside of school each day?</div>
+        <div class="quiz-options">
+          <div class="quiz-opt" onclick="selectOpt(this, 4, 1)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">😬</span>
+            <span class="opt-text">More than 5 hours — I'm always studying</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 4, 2)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">📖</span>
+            <span class="opt-text">3 – 5 hours — a lot but manageable</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 4, 3)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">✏️</span>
+            <span class="opt-text">1 – 3 hours — a healthy amount</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 4, 2)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">😅</span>
+            <span class="opt-text">Less than 1 hour — I struggle to find time or motivation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q5: Exercise -->
+      <div class="quiz-step" id="step-5">
+        <div class="q-num">Question 5 — Physical Activity</div>
+        <div class="quiz-question">How often do you do physical activity or exercise during the week?</div>
+        <div class="quiz-options">
+          <div class="quiz-opt" onclick="selectOpt(this, 5, 0)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">🛋️</span>
+            <span class="opt-text">Rarely or never — I don't have time or energy</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 5, 1)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">🚶</span>
+            <span class="opt-text">Once or twice a week — occasionally</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 5, 2)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">🏃</span>
+            <span class="opt-text">3 – 4 times a week — fairly active</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 5, 3)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">💪</span>
+            <span class="opt-text">5+ times a week — very active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6: Overall mood -->
+      <div class="quiz-step" id="step-6">
+        <div class="q-num">Question 6 — Wellbeing</div>
+        <div class="quiz-question">How would you describe your overall mood and energy throughout the school week?</div>
+        <div class="quiz-options">
+          <div class="quiz-opt" onclick="selectOpt(this, 6, 0)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">😞</span>
+            <span class="opt-text">Most days I feel exhausted, unmotivated or overwhelmed</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 6, 1)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">😕</span>
+            <span class="opt-text">I have good days and bad days, but I often feel tired or stressed</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 6, 2)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">🙂</span>
+            <span class="opt-text">I generally feel positive and have enough energy to get through the week</span>
+          </div>
+          <div class="quiz-opt" onclick="selectOpt(this, 6, 3)">
+            <div class="opt-radio"><div class="opt-radio-dot"></div></div>
+            <span class="opt-emoji">😄</span>
+            <span class="opt-text">I usually feel motivated, energetic and in a good mood throughout the week</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end quiz-body -->
+
+    <!-- Nav buttons -->
+    <div class="quiz-nav" id="quiz-nav">
+      <button class="btn btn-back" id="btn-back" onclick="goBack()" style="visibility:hidden">← Back</button>
+      <button class="btn btn-next" id="btn-next" onclick="goNext()" disabled>Next →</button>
+    </div>
+
+    <!-- Result (hidden initially) -->
+    <div class="quiz-result" id="quiz-result">
+
+      <div class="result-header">
+        <div class="score-ring-wrap">
+          <svg width="160" height="160" viewBox="0 0 160 160">
+            <circle cx="80" cy="80" r="66" fill="none" stroke="#F3F4F6" stroke-width="14"/>
+            <circle cx="80" cy="80" r="66" fill="none" stroke="#A78BFA" stroke-width="14"
+              stroke-dasharray="0 415" id="score-arc" stroke-linecap="round"
+              style="transition: stroke-dasharray 1.2s cubic-bezier(.22,1,.36,1)"/>
+          </svg>
+          <div class="score-ring-center">
+            <div class="score-big" id="score-num" style="color:var(--lavender)">—</div>
+            <div class="score-denom">out of 100</div>
+          </div>
+        </div>
+        <div class="result-badge" id="result-badge">—</div>
+        <h2 class="result-heading" id="result-heading">Your result</h2>
+        <p class="result-desc" id="result-desc"></p>
+      </div>
+
+      <!-- Personalised tips -->
+      <div class="result-tips">
+        <div class="result-tips-title">💡 Your personalised tips</div>
+        <div class="tips-grid" id="tips-grid"></div>
+      </div>
+
+      <!-- Breakdown bars -->
+      <div class="result-breakdown">
+        <div class="breakdown-title">📊 Your habit breakdown</div>
+        <div class="breakdown-bars" id="breakdown-bars"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="result-actions">
+        <button class="btn btn-retake" onclick="resetQuiz()">↺ Retake the quiz</button>
+        <a href="tips.html" class="btn btn-tips">View wellbeing tips →</a>
+        <a href="stats.html" class="btn btn-next">See the statistics →</a>
+      </div>
+
+    </div><!-- end quiz-result -->
+
+  </div><!-- end quiz-card -->
+</div><!-- end quiz-container -->
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">Stressed</a>
+    <ul class="footer-links">
+      <li><a href="stats.html">Statistics</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+      <li><a href="tips.html">Tips</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+    <span class="footer-copy">Year 11/12 Enterprise Computing · 2025 · Educational use only</span>
+  </div>
+</footer>
+
+<script>
+  const TOTAL = 6;
+  let current = 1;
+  const answers = {}; // question index → score value
+
+  // All tips library
+  const allTips = {
+    sleep: {
+      icon: '😴',
+      title: 'Improve your sleep',
+      text: 'Aim for 8–9 hours. Set a consistent bedtime even on weekends and avoid screens 30 min before bed.'
+    },
+    screen: {
+      icon: '📵',
+      title: 'Reduce screen time',
+      text: 'Set daily app limits. Try a "no phone after 9pm" rule and swap 30 min of scrolling for something restful.'
+    },
+    stress: {
+      icon: '🧘',
+      title: 'Manage academic stress',
+      text: 'Break big tasks into small daily chunks. Talk to a teacher or counsellor if pressure feels unmanageable.'
+    },
+    study: {
+      icon: '📚',
+      title: 'Study smarter',
+      text: 'Use the Pomodoro method — 25 min of focus, then a 5 min break. Plan your week every Sunday.'
+    },
+    exercise: {
+      icon: '🏃',
+      title: 'Move more',
+      text: 'Even a 10 min walk between study sessions boosts mood and lowers cortisol. Aim for 30–60 min daily.'
+    },
+    mood: {
+      icon: '💬',
+      title: 'Support your mood',
+      text: 'Talk to someone you trust — a friend, parent or school counsellor. You don\'t have to manage stress alone.'
+    },
+    great: {
+      icon: '🌟',
+      title: 'Keep it up!',
+      text: 'Your habits are in great shape. Keep your routines consistent, especially during exam periods.'
+    }
+  };
+
+  function selectOpt(el, q, val) {
+    // Deselect others in this step
+    el.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    answers[q] = val;
+    // Enable next button
+    const btn = document.getElementById('btn-next');
+    btn.disabled = false;
+  }
+
+  function goNext() {
+    if (answers[current] === undefined) return;
+    if (current < TOTAL) {
+      current++;
+      showStep(current);
+    } else {
+      showResult();
+    }
+  }
+
+  function goBack() {
+    if (current > 1) {
+      current--;
+      showStep(current);
+    }
+  }
+
+  function showStep(n) {
+    // Hide all steps
+    document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step-' + n).classList.add('active');
+
+    // Progress
+    const pct = (n / TOTAL) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-count').textContent = 'Question ' + n + ' of ' + TOTAL;
+
+    // Back button
+    const back = document.getElementById('btn-back');
+    back.style.visibility = n > 1 ? 'visible' : 'hidden';
+
+    // Next button label
+    const next = document.getElementById('btn-next');
+    next.textContent = n === TOTAL ? 'See my results ✓' : 'Next →';
+    next.className = 'btn ' + (n === TOTAL ? 'btn-result' : 'btn-next');
+
+    // If this question already answered, enable button
+    next.disabled = answers[n] === undefined;
+  }
+
+  function showResult() {
+    // Calculate total score
+    const total = Object.values(answers).reduce((a, b) => a + b, 0);
+    const maxScore = TOTAL * 3;
+    const pct = Math.round((total / maxScore) * 100);
+
+    // Hide steps, show result
+    document.getElementById('quiz-body').style.display = 'none';
+    document.getElementById('quiz-nav').style.display = 'none';
+    document.querySelector('.quiz-progress-wrap').style.display = 'none';
+    document.getElementById('quiz-result').classList.add('visible');
+
+    // Score ring
+    const circ = 2 * Math.PI * 66;
+    setTimeout(() => {
+      document.getElementById('score-arc').setAttribute('stroke-dasharray', (circ * pct / 100) + ' ' + circ);
+    }, 100);
+
+    // Score number
+    document.getElementById('score-num').textContent = pct;
+
+    // Tier
+    let tier, badgeClass, heading, desc, arcColor;
+    if (pct >= 70) {
+      tier = 'green';
+      arcColor = '#06D6A0';
+      badgeClass = 'badge-green';
+      heading = 'You\'re doing really well! 🌟';
+      desc = 'Your habits are largely healthy. You seem to have a good handle on sleep, screen time and stress. Keep the momentum going — these habits will serve you well during exams.';
+    } else if (pct >= 40) {
+      tier = 'yellow';
+      arcColor = '#FFD166';
+      badgeClass = 'badge-yellow';
+      heading = 'Doing okay — room to grow 💛';
+      desc = 'You have some healthy habits but there are a few areas worth working on. Focus on one or two small changes at a time — consistency matters more than perfection.';
+    } else {
+      tier = 'red';
+      arcColor = '#FF6B9D';
+      badgeClass = 'badge-red';
+      heading = 'High stress detected 🔴';
+      desc = 'Your results suggest high stress levels and some habits that may be affecting your wellbeing. That\'s okay — awareness is the first step. Start with one small change and build from there.';
+    }
+
+    document.getElementById('score-arc').setAttribute('stroke', arcColor);
+    document.getElementById('score-num').style.color = arcColor;
+
+    const badges = { green: '🟢 Low stress', yellow: '🟡 Moderate stress', red: '🔴 High stress' };
+    const badge = document.getElementById('result-badge');
+    badge.textContent = badges[tier];
+    badge.className = 'result-badge ' + badgeClass;
+
+    document.getElementById('result-heading').textContent = heading;
+    document.getElementById('result-desc').textContent = desc;
+
+    // Personalised tips based on weakest areas
+    const tipKeys = [];
+    if ((answers[1] || 0) <= 1) tipKeys.push('sleep');
+    if ((answers[2] || 0) <= 1) tipKeys.push('screen');
+    if ((answers[3] || 0) <= 1) tipKeys.push('stress');
+    if ((answers[5] || 0) <= 1) tipKeys.push('exercise');
+    if ((answers[6] || 0) <= 1) tipKeys.push('mood');
+    if (tipKeys.length === 0) { tipKeys.push('great'); tipKeys.push('study'); tipKeys.push('exercise'); }
+    while (tipKeys.length < 3) tipKeys.push('study');
+    const showTips = tipKeys.slice(0, 3);
+
+    const tipsGrid = document.getElementById('tips-grid');
+    tipsGrid.innerHTML = showTips.map(k => {
+      const t = allTips[k];
+      return `<div class="tip-card">
+        <div class="tip-icon">${t.icon}</div>
+        <div class="tip-title">${t.title}</div>
+        <div class="tip-text">${t.text}</div>
+      </div>`;
+    }).join('');
+
+    // Breakdown bars
+    const areas = [
+      { label: 'Sleep quality',      score: answers[1] || 0, color: '#A78BFA' },
+      { label: 'Screen time habits', score: answers[2] || 0, color: '#4CC9F0' },
+      { label: 'Stress management',  score: answers[3] || 0, color: '#FF6B9D' },
+      { label: 'Study balance',      score: answers[4] || 0, color: '#FFD166' },
+      { label: 'Physical activity',  score: answers[5] || 0, color: '#06D6A0' },
+      { label: 'Overall mood',       score: answers[6] || 0, color: '#FF9472' },
+    ];
+    const barsEl = document.getElementById('breakdown-bars');
+    barsEl.innerHTML = areas.map(a => {
+      const pct = Math.round((a.score / 3) * 100);
+      const label = pct >= 67 ? 'Good' : pct >= 34 ? 'Fair' : 'Needs work';
+      return `<div class="breakdown-row">
+        <div class="breakdown-meta"><span>${a.label}</span><span style="color:${a.color};font-weight:700">${label}</span></div>
+        <div class="breakdown-track"><div class="breakdown-fill" style="width:${pct}%;background:${a.color}"></div></div>
+      </div>`;
+    }).join('');
+  }
+
+  function resetQuiz() {
+    // Reset state
+    current = 1;
+    Object.keys(answers).forEach(k => delete answers[k]);
+    document.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+
+    // Show quiz again
+    document.getElementById('quiz-body').style.display = 'block';
+    document.getElementById('quiz-nav').style.display = 'flex';
+    document.querySelector('.quiz-progress-wrap').style.display = 'block';
+    document.getElementById('quiz-result').classList.remove('visible');
+
+    showStep(1);
+  }
+
+  // Init
+  showStep(1);
+</script>
+
+</body>
+</html>
